@@ -17,7 +17,7 @@
 #define STOP 5
 
 int checkDirection(drone_t *drone, int key); // Функция проверки направления дрона
-int keyProcessing(drone_t *drone, int key, node **droneList, int droneCount, freeColor_t **freeColor); // Функция обработки нажатия клавиш
+int keyProcessing(drone_t *drone, int key, node **droneList, int droneCount, freeColor_t **freeColor, int result); // Функция обработки нажатия клавиш
 void userPause();  // Функция отрисовки паузы игры
 int droneProcessing(node **droneList, pumpkins_t **listHarvest, freeColor_t **freeColor); // Функция обработки движения автоматических дронов
 void checkEnd(pumpkins_t *listHarvest, int result);  // Функция проверки окончания игры
@@ -45,7 +45,7 @@ int main()
         droneCount = droneListCount(droneList);     // Подсчет автоматических дронов, для ограничения до 5 штук на поле
         if (kbhit())                                // Проверка нажатой клавиши
         {
-            key = keyProcessing(drone1, key, &droneList, droneCount, &freeColor); // Передача направления дрону с ручным направлением
+            key = keyProcessing(drone1, key, &droneList, droneCount, &freeColor, harvestCounter); // Передача направления дрону с ручным направлением
         }
         drone1 = moveDrone(drone1, key);            // Движение дрона с ручным направлением
 
@@ -145,7 +145,7 @@ int droneProcessing(node **droneList, pumpkins_t **listHarvest, freeColor_t **fr
     return harvestCounter;
 }
 
-int keyProcessing(drone_t *drone, int key, node **droneList, int droneCount, freeColor_t **freeColor)
+int keyProcessing(drone_t *drone, int key, node **droneList, int droneCount, freeColor_t **freeColor, int result)
 {
     /*
     Функция считывает из буфера нажатую клавишу. 
@@ -212,8 +212,9 @@ int keyProcessing(drone_t *drone, int key, node **droneList, int droneCount, fre
         {
             if (i == 7)
             {
-                printf("          END GAME           \n");
-                printf("___________Result____________\n");
+                printf("        END GAME         \n");
+                printf("_________Result__________\n");
+                printf(" Has been harvested : %d \n", result);
             }
             printf(" \n");
         }
