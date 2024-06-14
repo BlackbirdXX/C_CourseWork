@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "field.h": "c",
+        "cmath": "c",
+        "pumpkins.h": "c"
+    }
+}
